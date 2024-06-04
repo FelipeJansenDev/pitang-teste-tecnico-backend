@@ -12,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,19 +31,22 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(usuarioMapper::toDto).toList();
     }
 
-    public UsuarioDTO createUsuario(UsuarioDTO usuario) {
-        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+    public UsuarioDTO createUsuario(UsuarioDTO usuarioDTO) {
+        if (usuarioRepository.existsByEmail(usuarioDTO.getEmail())) {
             throw new EmailExistenteException();
         }
 
-        if (usuarioRepository.existsByLogin(usuario.getLogin())) {
+        if (usuarioRepository.existsByLogin(usuarioDTO.getLogin())) {
             throw new LoginExistenteException();
         }
 
-         String encryptedPassword = new BCryptPasswordEncoder().encode(usuario.getPassword());
-         usuario.setPassword(encryptedPassword);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(usuarioDTO.getPassword());
+        usuarioDTO.setPassword(encryptedPassword);
 
-        return usuarioMapper.toDto(usuarioRepository.save(usuarioMapper.toEntity(usuario)));
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setCreatedAt(LocalDateTime.now());
+
+        return usuarioMapper.toDto(usuarioRepository.save(usuario));
     }
 
     public UsuarioDTO getUsuarioById(Long id) {

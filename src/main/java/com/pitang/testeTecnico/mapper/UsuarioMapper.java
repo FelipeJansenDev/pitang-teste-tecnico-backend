@@ -1,6 +1,7 @@
 package com.pitang.testeTecnico.mapper;
 
 import com.pitang.testeTecnico.model.Usuario;
+import com.pitang.testeTecnico.model.dto.MeDTO;
 import com.pitang.testeTecnico.model.dto.UsuarioDTO;
 import org.mapstruct.Mapper;
 
@@ -9,6 +10,8 @@ public interface UsuarioMapper {
 
     UsuarioDTO toDto(Usuario usuario);
 
-    Usuario toEntity (UsuarioDTO usuarioDTO);
+    Usuario toEntity(UsuarioDTO usuarioDTO);
+
+    MeDTO toMe(Usuario usuario);
 
 }

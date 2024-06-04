@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,12 @@ public class Usuario implements UserDetails {
 
     @Column
     private String phone;
+
+    @Column
+    private LocalDateTime createdAt;
+
+    @Column
+    private LocalDateTime lastLogin;
 
     public Long getId() {
         return id;
@@ -96,6 +103,22 @@ public class Usuario implements UserDetails {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     // REQUERIDOS PELO SPRING SECURITY
