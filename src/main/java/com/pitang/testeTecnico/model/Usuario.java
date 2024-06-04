@@ -8,7 +8,9 @@ import java.util.Date;
 public class Usuario {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
+    private Long id;
 
     @Column
     private String firstName;
@@ -16,13 +18,13 @@ public class Usuario {
     @Column
     private String lastName;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
     @Column
     private Date birthday;
 
-    @Column
+    @Column(unique = true)
     private String login;
 
     @Column
@@ -31,11 +33,11 @@ public class Usuario {
     @Column
     private String phone;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
