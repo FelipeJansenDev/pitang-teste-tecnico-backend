@@ -1,13 +1,20 @@
 package com.pitang.testeTecnico.model.dto;
 
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.util.Date;
 
 public class UsuarioDTO {
 
-    private Long id;
+    Long id;
     private String firstName;
     private String lastName;
     private Date birthday;
+    @NotNull
+    @Size(min = 5, max = 20)
     private String login;
     private String password;
     private String phone;
