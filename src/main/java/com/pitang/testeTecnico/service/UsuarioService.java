@@ -1,12 +1,15 @@
 package com.pitang.testeTecnico.service;
 
+import com.pitang.testeTecnico.config.TokenService;
 import com.pitang.testeTecnico.exceptions.EmailExistenteException;
 import com.pitang.testeTecnico.exceptions.LoginExistenteException;
 import com.pitang.testeTecnico.mapper.UsuarioMapper;
 import com.pitang.testeTecnico.model.Usuario;
 import com.pitang.testeTecnico.model.dto.UsuarioDTO;
 import com.pitang.testeTecnico.repository.UsuarioRepository;
+import org.springframework.context.ApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +21,7 @@ public class UsuarioService {
 
     private final UsuarioMapper usuarioMapper;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper) {
+    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper, ApplicationContext context, TokenService tokenService) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioMapper = usuarioMapper;
     }
@@ -27,16 +30,19 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(usuarioMapper::toDto).toList();
     }
 
-    public UsuarioDTO createUsuario(UsuarioDTO usuarioDTO) {
-        if (usuarioRepository.existsByEmail(usuarioDTO.getEmail())) {
+    public UsuarioDTO createUsuario(UsuarioDTO usuario) {
+        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             throw new EmailExistenteException();
         }
 
-        if (usuarioRepository.existsByLogin(usuarioDTO.getLogin())) {
+        if (usuarioRepository.existsByLogin(usuario.getLogin())) {
             throw new LoginExistenteException();
         }
 
-        return usuarioMapper.toDto(usuarioRepository.save(usuarioMapper.toEntity(usuarioDTO)));
+         String encryptedPassword = new BCryptPasswordEncoder().encode(usuario.getPassword());
+         usuario.setPassword(encryptedPassword);
+
+        return usuarioMapper.toDto(usuarioRepository.save(usuarioMapper.toEntity(usuario)));
     }
 
     public UsuarioDTO getUsuarioById(Long id) {
@@ -56,4 +62,5 @@ public class UsuarioService {
         usuario = usuarioRepository.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
+
 }

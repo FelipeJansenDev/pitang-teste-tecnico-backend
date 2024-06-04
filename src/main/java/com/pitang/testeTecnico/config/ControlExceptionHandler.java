@@ -8,6 +8,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -42,6 +43,13 @@ public class ControlExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleLoginExistenteException(LoginExistenteException ex) {
         String userMessage = messageSource.getMessage("recurso.login-existente", null, LocaleContextHolder.getLocale());
         List<Error> errors = List.of(new Error(userMessage, 3));
+        return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler({ BadCredentialsException.class })
+    public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex) {
+        String userMessage = messageSource.getMessage("seguranca.credenciais-incorretas", null, LocaleContextHolder.getLocale());
+        List<Error> errors = List.of(new Error(userMessage, 4));
         return ResponseEntity.badRequest().body(errors);
     }
 

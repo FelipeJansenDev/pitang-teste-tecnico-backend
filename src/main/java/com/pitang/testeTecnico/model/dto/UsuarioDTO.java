@@ -1,7 +1,5 @@
 package com.pitang.testeTecnico.model.dto;
 
-
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -68,12 +66,13 @@ public class UsuarioDTO {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getPhone() {

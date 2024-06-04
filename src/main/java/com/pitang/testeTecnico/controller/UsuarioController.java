@@ -1,16 +1,16 @@
 package com.pitang.testeTecnico.controller;
 
+import com.pitang.testeTecnico.model.dto.LoginResponseDto;
+import com.pitang.testeTecnico.model.dto.LoginUserDTO;
 import com.pitang.testeTecnico.model.dto.UsuarioDTO;
 import com.pitang.testeTecnico.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Validated
 @RestController
 @RequestMapping("/users")
 public class UsuarioController {
@@ -32,8 +32,8 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> createUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO)  {
-        return new ResponseEntity<>(usuarioService.createUsuario(usuarioDTO), HttpStatus.CREATED);
+    public ResponseEntity<UsuarioDTO> createUsuario(@Valid @RequestBody UsuarioDTO usuario)  {
+        return new ResponseEntity<>(usuarioService.createUsuario(usuario), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
