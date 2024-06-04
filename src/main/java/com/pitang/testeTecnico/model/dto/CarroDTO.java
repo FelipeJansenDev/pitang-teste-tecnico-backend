@@ -1,36 +1,12 @@
-package com.pitang.testeTecnico.model;
+package com.pitang.testeTecnico.model.dto;
 
-import jakarta.persistence.*;
+public class CarroDTO {
 
-import java.math.BigDecimal;
-
-@Entity
-public class Carro {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
-
-    @Column
     private String color;
-
-    @Column(unique = true)
     private String licensePlate;
-
-    @Column
     private String model;
-
-    @ManyToOne
-    private Usuario usuario;
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -64,4 +40,11 @@ public class Carro {
         this.model = model;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

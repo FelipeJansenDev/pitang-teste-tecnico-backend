@@ -1,8 +1,11 @@
 package com.pitang.testeTecnico.model.dto;
 
+import com.pitang.testeTecnico.model.Carro;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Date;
 
 public class UsuarioDTO {
@@ -17,6 +20,7 @@ public class UsuarioDTO {
     private String password;
     private String phone;
     private String email;
+    private Set<Carro> cars = new HashSet<>();
 
     public String getEmail() {
         return email;
@@ -81,5 +85,13 @@ public class UsuarioDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Set<Carro> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<Carro> cars) {
+        this.cars = cars;
     }
 }

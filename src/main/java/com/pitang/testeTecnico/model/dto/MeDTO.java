@@ -1,18 +1,32 @@
 package com.pitang.testeTecnico.model.dto;
 
+import com.pitang.testeTecnico.model.Carro;
+
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MeDTO {
 
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
     private Date birthday;
     private String login;
     private String phone;
+    private Set<CarroDTO> cars = new HashSet<>();
     private LocalDateTime createdAt;
     private LocalDateTime lastLogin;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -76,5 +90,13 @@ public class MeDTO {
 
     public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public Set<CarroDTO> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<CarroDTO> cars) {
+        this.cars = cars;
     }
 }

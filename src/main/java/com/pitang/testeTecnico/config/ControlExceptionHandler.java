@@ -1,6 +1,7 @@
 package com.pitang.testeTecnico.config;
 
 import com.pitang.testeTecnico.exceptions.EmailExistenteException;
+import com.pitang.testeTecnico.exceptions.LicensePlateExistenteException;
 import com.pitang.testeTecnico.exceptions.LoginExistenteException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -53,17 +54,12 @@ public class ControlExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-//    private List<Error> createErrorList(BindingResult bindindResult) {
-//        List<Error> errors = new ArrayList<>();
-//
-//        for (FieldError fieldError : bindindResult.getFieldErrors()) {
-//            String message = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
-//            String errorCode = fieldError.toString();
-//            errors.add(new Error(message, errorCode));
-//        }
-//
-//        return errors;
-//    }
+    @ExceptionHandler({ LicensePlateExistenteException.class })
+    public ResponseEntity<Object> handleLicensePlateExistenteException(LicensePlateExistenteException ex) {
+        String userMessage = messageSource.getMessage("recurso.licenseplate-existente", null, LocaleContextHolder.getLocale());
+        List<Error> errors = List.of(new Error(userMessage, 5));
+        return ResponseEntity.badRequest().body(errors);
+    }
 
     public static class Error {
 

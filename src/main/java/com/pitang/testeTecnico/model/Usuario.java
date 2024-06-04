@@ -6,9 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Usuario implements UserDetails {
@@ -44,6 +42,17 @@ public class Usuario implements UserDetails {
 
     @Column
     private LocalDateTime lastLogin;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
+    private Set<Carro> cars = new HashSet<>();
+
+    public Set<Carro> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<Carro> cars) {
+        this.cars = cars;
+    }
 
     public Long getId() {
         return id;
