@@ -1,16 +1,15 @@
 package com.pitang.testeTecnico.controller;
 
-import com.pitang.testeTecnico.model.Carro;
 import com.pitang.testeTecnico.model.dto.CarroDTO;
-import com.pitang.testeTecnico.model.dto.UsuarioDTO;
 import com.pitang.testeTecnico.service.CarroService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/cars")
 public class CarroController {
@@ -27,14 +26,14 @@ public class CarroController {
     }
 
     @PostMapping
-    public ResponseEntity<CarroDTO> createCarro(@RequestBody CarroDTO carroDTO)  {
+    public ResponseEntity<CarroDTO> createCarro(@Valid @RequestBody CarroDTO carroDTO)  {
         return new ResponseEntity<>(carroService.create(carroDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CarroDTO> getCarro(@PathVariable Long id)  {
         CarroDTO carroDTO = carroService.getCarro(id);
-        return new ResponseEntity<>(carroDTO, carroDTO == null ? HttpStatus.NOT_FOUND : HttpStatus.FOUND);
+        return new ResponseEntity<>(carroDTO, carroDTO.getId() == null ? HttpStatus.NO_CONTENT : HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -44,7 +43,7 @@ public class CarroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CarroDTO> updateCarro(@PathVariable Long id, @RequestBody CarroDTO carroDTO)  {
+    public ResponseEntity<CarroDTO> updateCarro(@PathVariable Long id, @Valid @RequestBody CarroDTO carroDTO)  {
         CarroDTO carroDTO1 = carroService.updateCarro(id, carroDTO);
         return new ResponseEntity<>(carroDTO1, HttpStatus.OK);
     }

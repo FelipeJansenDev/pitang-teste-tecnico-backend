@@ -1,26 +1,30 @@
 package com.pitang.testeTecnico.model.dto;
 
-import com.pitang.testeTecnico.model.Carro;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Date;
 
 public class UsuarioDTO {
 
-    Long id;
+    private Long id;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private Date birthday;
     @NotNull
-    @Size(min = 5, max = 20)
     private String login;
+    @NotNull
     private String password;
+    @NotNull
     private String phone;
+    @Email
     private String email;
-    private Set<Carro> cars = new HashSet<>();
+    private Set<CarroDTO> cars = new HashSet<>();
 
     public String getEmail() {
         return email;
@@ -87,11 +91,11 @@ public class UsuarioDTO {
         this.phone = phone;
     }
 
-    public Set<Carro> getCars() {
+    public Set<CarroDTO> getCars() {
         return cars;
     }
 
-    public void setCars(Set<Carro> cars) {
+    public void setCars(Set<CarroDTO> cars) {
         this.cars = cars;
     }
 }

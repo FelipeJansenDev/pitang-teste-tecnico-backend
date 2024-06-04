@@ -6,19 +6,21 @@ import com.pitang.testeTecnico.exceptions.LoginExistenteException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
-public class ControlExceptionHandler extends ResponseEntityExceptionHandler {
+public class ControlExceptionHandler {
 
     private final MessageSource messageSource;
 
@@ -30,7 +32,7 @@ public class ControlExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("recurso.nao-existente", null, LocaleContextHolder.getLocale());
         List<Error> errors = List.of(new Error(userMessage, 1));
-        return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({ EmailExistenteException.class })
@@ -59,6 +61,24 @@ public class ControlExceptionHandler extends ResponseEntityExceptionHandler {
         String userMessage = messageSource.getMessage("recurso.licenseplate-existente", null, LocaleContextHolder.getLocale());
         List<Error> errors = List.of(new Error(userMessage, 5));
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler({ MethodArgumentNotValidException.class })
+    public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
+        List<Error> errors = criarListaDeErros(ex.getBindingResult());
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    private List<Error> criarListaDeErros(BindingResult bindingResult) {
+        List<Error> erros = new ArrayList<>();
+
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            String mensagemUsuario = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+            String mensagemDesenvolvedor = fieldError.getCode();
+            erros.add(new Error(mensagemUsuario, 6));
+        }
+
+        return erros;
     }
 
     public static class Error {

@@ -2,24 +2,25 @@ package com.pitang.testeTecnico.model;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-
 @Entity
 public class Carro {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @SequenceGenerator(name = "carro_seq", sequenceName = "CARRO_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "carro_seq")
     private Long id;
 
-    @Column
+    @Column(name = "color")
     private String color;
 
-    @Column(unique = true)
+    @Column(name="licenseplate", unique = true)
     private String licensePlate;
 
-    @Column
+    @Column(name = "model")
     private String model;
+
+    @Column(name = "manufactureyear")
+    private Integer year;
 
     @ManyToOne
     private Usuario usuario;
@@ -64,4 +65,11 @@ public class Carro {
         this.model = model;
     }
 
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
 }

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: pitangTesteTecnico
+  datasource:
+    name: pitangTesteTecnico
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: false
+
+server:
+  port: '8080'
+  servlet:
+    context-path: /${spring.application.name}/api
+  http2.enabled: true

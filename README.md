@@ -8,7 +8,7 @@ Para **TER VISIBILIDADE DE QUAIS USUÁRIOS ESTÃO CADASTRADOS NO SISTEMA**
 
 ---
 
-**FEAT-002** - Configuração sequenciador de ID
+**FEAT-002** - Configuração sequenciador de ID  
 
 Foram adicionados incrementos automáticos na geração dos IDs
 de Usuário e Carro.
@@ -79,6 +79,13 @@ Para **TER CONTROLE SOBRE O GERENCIAMENTO DOS CARROS NA MINHA BASE DE DADOS**
 
 ---
 
+**BUGFIX-011** - Ajustes CORS e validação dos dados
+
+Estávamos enfrentado um erro de CORS, o frontend não conseguia acessar, assim como os campos
+do objeto não estavam sendo validados.
+
+---
+
 ## Usuários disponíveis
 
 | Nome de Login | Senha    |
@@ -113,7 +120,7 @@ docker-compose -f docker-compose.yml up
 ```
 Ps.: A imagem docker está pública, então vc não deve ter problemas para executá-lo. Link para a imagem Docker -> https://hub.docker.com/repository/docker/felipejansen/teste-tecnico-pitang/general
 
-PS 2.:
+PS 2.: 
 
 Tem um arquivo na pasta devops chamado "pitang_teste_tecnico-backend.postman_collection.json", são as requisições da API
 para o postman.
@@ -146,9 +153,9 @@ Frontend
 
 OVERVIEW SOBRE A STACK DE DEVOPS:
 
-- Como requisito do teste técnico: A api está sendo executada na AWS em uma instância do Lightsail.
-  Está sendo executado atravé do arquivo docker-compose e puxando a imagem que eu fiz o deploy
-  para o docker hub. O frontend foi armazenado e está sendo executado diretamente de um bucket S3.
+- Como requisito do teste técnico: A api está sendo executada na AWS em uma instância do Lightsail. 
+Está sendo executado atravé do arquivo docker-compose e puxando a imagem que eu fiz o deploy
+para o docker hub. O frontend foi armazenado e está sendo executado diretamente de um bucket S3.
 
 
 - Link frontend: http://teste-tecnico-pitang-frontend.s3-website.us-east-2.amazonaws.com/

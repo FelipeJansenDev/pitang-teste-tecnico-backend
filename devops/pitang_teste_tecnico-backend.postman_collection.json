@@ -1,0 +1,331 @@
+{
+	"info": {
+		"_postman_id": "805431b5-ffdb-4c94-80e9-29bd5db6dbed",
+		"name": "Pitang Teste Técnico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33153130"
+	},
+	"item": [
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "GET all usuários",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoIiwic3ViIjoiZmVsaXBlMkBmZWxpcGUiLCJleHAiOjE3MTcyNjE0MzF9.bkkHmtGRPDlieLdXn0loJ-rc59WwrSuG6YELgZZ9f7o",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST criar usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Felipe\",\r\n    \"lastName\": \"Silva\",\r\n    \"email\": \"felipe2@felipe\",\r\n    \"birthday\": \"1990-01-15\",\r\n    \"login\": \"felipe\",\r\n    \"password\": \"123\",\r\n    \"phone\": \"+55 11 91234-5678\",\r\n    \"cars\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE deletar usuário",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT atualizar usuário",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Felipe\",\r\n  \"lastName\": \"Jansen\",\r\n  \"email\": \"felipe.jansen@example.com\",\r\n  \"birthday\": \"1990-01-15\",\r\n  \"login\": \"felipeJansen2\",\r\n  \"password\": \"senhaSegura123\",\r\n  \"phone\": \"+55 11 91234-5678\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/users/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "POST realizar login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"john\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/signin",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET meus dados",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoIiwic3ViIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJleHAiOjE3MTc0NTY1Nzh9.V51PHcEGvFIs9B8pu-utaKMNWn3KmcQBvue1KxioxOY"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/me",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carros",
+			"item": [
+				{
+					"name": "GET retornar carros do usuário logado",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoIiwic3ViIjoiZHNhZEBkc2Fkc2EiLCJleHAiOjE3MTc0NDI3NTd9.yHy3cw9RhIh1TT4w9zv_siVQqYsxhZzFH-Na7H7VYPk"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/cars",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST criar carro",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoIiwic3ViIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJleHAiOjE3MTc0NTQzODV9.1TTgP1yQeLzYVTJ74tu5jF-OPw9NHZtZWyHTJNtZp2E"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"color\": \"red\",\r\n    \"licensePlate\": \"1dsadasasd\",\r\n    \"model\": \"carddsaModel\",\r\n    \"year\": 2019\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/cars",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET carro pelo id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoIiwic3ViIjoiZHNhZEBkc2Fkc2EiLCJleHAiOjE3MTc0NDI3NTd9.yHy3cw9RhIh1TT4w9zv_siVQqYsxhZzFH-Na7H7VYPk"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/cars/13",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"cars",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE deletar carro por id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoIiwic3ViIjoiZmVsaXBlMkBmZWxpcGUiLCJleHAiOjE3MTcyODcxNjV9.flosG92cGDpWuiVw3To10MxoXBWS0f3EmZb3czqae4s"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/cars/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"cars",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT atualizar carro",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoIiwic3ViIjoiZmVsaXBlMkBmZWxpcGUiLCJleHAiOjE3MTc0MzUyNjl9.ixlFZsdzPBqT22zIEdamiU-_P6zjYtVt--_HFJ1YwsM"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"color\": \"blue\",\r\n    \"licensePlate\": \"license\",\r\n    \"model\": \"cardModel\",\r\n    \"year\": 2020,\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pitangTesteTecnico/api/cars/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pitangTesteTecnico",
+								"api",
+								"cars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

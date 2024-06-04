@@ -12,35 +12,35 @@ import java.util.*;
 public class Usuario implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @SequenceGenerator(name = "usuario_seq", sequenceName = "USUARIO_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
     private Long id;
 
-    @Column
+    @Column(name = "firstname")
     private String firstName;
 
-    @Column
+    @Column(name = "lastname")
     private String lastName;
 
-    @Column(unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column
+    @Column(name = "birthday")
     private Date birthday;
 
-    @Column(unique = true)
+    @Column(name = "login", unique = true)
     private String login;
 
-    @Column
+    @Column(name = "password")
     private String password;
 
-    @Column
+    @Column(name = "phone")
     private String phone;
 
-    @Column
+    @Column(name = "createdat")
     private LocalDateTime createdAt;
 
-    @Column
+    @Column(name = "lastlogin")
     private LocalDateTime lastLogin;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")

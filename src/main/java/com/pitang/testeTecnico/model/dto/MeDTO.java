@@ -1,7 +1,5 @@
 package com.pitang.testeTecnico.model.dto;
 
-import com.pitang.testeTecnico.model.Carro;
-
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;

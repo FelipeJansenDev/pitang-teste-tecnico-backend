@@ -1,11 +1,18 @@
 package com.pitang.testeTecnico.model.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public class CarroDTO {
 
     private Long id;
+    @NotNull
     private String color;
+    @NotNull
     private String licensePlate;
+    @NotNull
     private String model;
+    @NotNull
+    private Integer year;
     private Long userId;
 
     public Long getId() {
@@ -46,5 +53,13 @@ public class CarroDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 }

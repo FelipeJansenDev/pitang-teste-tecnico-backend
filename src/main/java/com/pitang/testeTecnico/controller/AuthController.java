@@ -4,11 +4,12 @@ import com.pitang.testeTecnico.model.dto.LoginResponseDto;
 import com.pitang.testeTecnico.model.dto.LoginUserDTO;
 import com.pitang.testeTecnico.model.dto.MeDTO;
 import com.pitang.testeTecnico.service.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("")
 public class AuthController {
@@ -20,7 +21,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginUserDTO loginUserDTO){
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginUserDTO loginUserDTO){
         return new ResponseEntity<>(authService.login(loginUserDTO), HttpStatus.OK);
     }
 

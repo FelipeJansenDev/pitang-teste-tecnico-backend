@@ -3,16 +3,10 @@ package com.pitang.testeTecnico.service;
 import com.pitang.testeTecnico.exceptions.LicensePlateExistenteException;
 import com.pitang.testeTecnico.mapper.CarroMapper;
 import com.pitang.testeTecnico.model.Carro;
-import com.pitang.testeTecnico.model.Usuario;
 import com.pitang.testeTecnico.model.dto.CarroDTO;
-import com.pitang.testeTecnico.model.dto.MeDTO;
 import com.pitang.testeTecnico.repository.CarroRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -64,10 +58,9 @@ public class CarroService {
             Carro carroUpdated = carroMapper.toEntity(carroDTO);
 
             if (!Objects.equals(carroUpdated.getLicensePlate(), carro.getLicensePlate())
-                    && carroRepository.existsByLicensePlate(carroUpdated.getLicensePlate())) {
+                    && carroRepository.existsByLicensePlate(carroDTO.getLicensePlate())) {
                 throw new LicensePlateExistenteException();
             }
-
             carro = carroRepository.save(carroUpdated);
         }
         return carroMapper.toDto(carro);

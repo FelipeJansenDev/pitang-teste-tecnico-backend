@@ -1,7 +1,11 @@
 package com.pitang.testeTecnico.model.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public class LoginUserDTO {
+    @NotNull
     private String login;
+    @NotNull
     private String password;
 
     public String getLogin() {
