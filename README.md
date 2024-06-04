@@ -1,5 +1,7 @@
 ## Estórias de Usuário
 
+## SPRINT 1
+
 **EST-001** - Implementação retorno de usuários
 
 Como **USUÁRIO**\
@@ -14,6 +16,8 @@ Foram adicionados incrementos automáticos na geração dos IDs
 de Usuário e Carro.
 
 ---
+
+## SPRINT 2
 
 **EST-003** - Implementação CRUD de usuários
 
@@ -31,6 +35,8 @@ Para **ALTERAR REGISTROS DE USUÁRIO**
 
 ---
 
+## SPRINT 3
+
 **EST-005** - Implementação exceptionHandler
 
 Como **USUÁRIO**\
@@ -46,6 +52,8 @@ Eu quero **QUE MEU E-MAIL SEJA ÚNICO DENTRO DO SISTEMA** \
 Para **GARANTIR QUE NÃO TERÁ UM USUÁRIO DUPLICADO**
 
 ---
+
+## SPRINT 4
 
 **EST-007** - Implementação validação de dados
 
@@ -63,6 +71,8 @@ Para **ACESSAR AS INFORMAÇÕES QUE NECESSITAM DE AUTENTICAÇÃO**
 
 ---
 
+## SPRINT 5
+
 **EST-009** - Implementação retorno usuário logado
 
 Como **USUÁRIO**\
@@ -78,6 +88,8 @@ Eu quero **LISTAR, RETORNAR, ATUALIZAR E DELETAR CARROS** \
 Para **TER CONTROLE SOBRE O GERENCIAMENTO DOS CARROS NA MINHA BASE DE DADOS**
 
 ---
+
+## SPRINT 6
 
 **BUGFIX-011** - Ajustes CORS e validação dos dados
 

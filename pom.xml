@@ -114,7 +114,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>felipejansen/teste-tecnico-pitang:1.0.4</image>
+						<image>felipejansen/teste-tecnico-pitang:1.0.5</image>
 					</to>
 				</configuration>
 			</plugin>
