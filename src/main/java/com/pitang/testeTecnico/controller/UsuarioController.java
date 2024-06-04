@@ -1,6 +1,5 @@
 package com.pitang.testeTecnico.controller;
 
-import com.pitang.testeTecnico.model.Usuario;
 import com.pitang.testeTecnico.model.dto.UsuarioDTO;
 import com.pitang.testeTecnico.service.UsuarioService;
 import org.springframework.http.HttpStatus;

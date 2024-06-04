@@ -1,7 +1,5 @@
 package com.pitang.testeTecnico.model.dto;
 
-import jakarta.persistence.Column;
-
 import java.util.Date;
 
 public class UsuarioDTO {
@@ -13,6 +11,15 @@ public class UsuarioDTO {
     private String login;
     private String password;
     private String phone;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Long getId() {
         return id;

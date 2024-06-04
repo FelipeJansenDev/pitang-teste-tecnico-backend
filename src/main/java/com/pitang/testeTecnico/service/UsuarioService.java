@@ -1,5 +1,7 @@
 package com.pitang.testeTecnico.service;
 
+import com.pitang.testeTecnico.exceptions.EmailExistenteException;
+import com.pitang.testeTecnico.exceptions.LoginExistenteException;
 import com.pitang.testeTecnico.mapper.UsuarioMapper;
 import com.pitang.testeTecnico.model.Usuario;
 import com.pitang.testeTecnico.model.dto.UsuarioDTO;
@@ -26,6 +28,14 @@ public class UsuarioService {
     }
 
     public UsuarioDTO createUsuario(UsuarioDTO usuarioDTO) {
+        if (usuarioRepository.existsByEmail(usuarioDTO.getEmail())) {
+            throw new EmailExistenteException();
+        }
+
+        if (usuarioRepository.existsByLogin(usuarioDTO.getLogin())) {
+            throw new LoginExistenteException();
+        }
+
         return usuarioMapper.toDto(usuarioRepository.save(usuarioMapper.toEntity(usuarioDTO)));
     }
 
@@ -38,7 +48,6 @@ public class UsuarioService {
     }
 
     public UsuarioDTO updateUsuario(Long id, UsuarioDTO usuarioDTO) {
-
         if (!usuarioRepository.existsById(id)) {
             throw new EmptyResultDataAccessException(Math.toIntExact(id));
         }

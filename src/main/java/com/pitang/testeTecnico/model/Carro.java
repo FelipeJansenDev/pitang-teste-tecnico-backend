@@ -2,8 +2,6 @@ package com.pitang.testeTecnico.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity
 public class Carro {
 
