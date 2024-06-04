@@ -30,16 +30,16 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> createUsuario(@RequestBody UsuarioDTO usuarioDTO)  {
+    public ResponseEntity<UsuarioDTO> createUsuario(@RequestBody UsuarioDTO usuarioDTO)  {
         return new ResponseEntity<>(usuarioService.createUsuario(usuarioDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> updateUsuario(
-            @RequestBody Usuario usuario,
+    public ResponseEntity<UsuarioDTO> updateUsuario(
+            @RequestBody UsuarioDTO usuarioDTO,
             @PathVariable Long id
             ) throws Exception {
-        return new ResponseEntity<>(usuarioService.updateUsuario(id, usuario), HttpStatus.OK);
+        return new ResponseEntity<>(usuarioService.updateUsuario(id, usuarioDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

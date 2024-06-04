@@ -24,8 +24,8 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(usuarioMapper::toDto).toList();
     }
 
-    public Usuario createUsuario(UsuarioDTO usuarioDTO) {
-        return usuarioRepository.save(usuarioMapper.toEntity(usuarioDTO));
+    public UsuarioDTO createUsuario(UsuarioDTO usuarioDTO) {
+        return usuarioMapper.toDto(usuarioRepository.save(usuarioMapper.toEntity(usuarioDTO)));
     }
 
     public UsuarioDTO getUsuarioById(Long id) {
@@ -36,11 +36,14 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public Usuario updateUsuario(Long id, Usuario usuario) throws Exception {
+    public UsuarioDTO updateUsuario(Long id, UsuarioDTO usuarioDTO) throws Exception {
 
         if (!usuarioRepository.existsById(id)) {
             throw new Exception("Não encontrado", null);
         }
-        return usuarioRepository.save(usuario);
+        usuarioDTO.setId(id);
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario = usuarioRepository.save(usuario);
+        return usuarioMapper.toDto(usuario);
     }
 }
