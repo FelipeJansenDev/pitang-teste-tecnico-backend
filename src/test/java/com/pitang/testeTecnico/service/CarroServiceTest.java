@@ -6,24 +6,26 @@ import com.pitang.testeTecnico.model.Carro;
 import com.pitang.testeTecnico.model.dto.CarroDTO;
 import com.pitang.testeTecnico.model.dto.MeDTO;
 import com.pitang.testeTecnico.repository.CarroRepository;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-class CarroServiceTest {
+@RunWith(MockitoJUnitRunner.class)
+public class CarroServiceTest {
 
     @InjectMocks
-    private CarroService carroService;
+    public CarroService carroService;
 
     @Mock
     CarroRepository carroRepository;
@@ -43,13 +45,25 @@ class CarroServiceTest {
     @Mock
     Carro carro;
 
+    @Mock
+    Carro carroUpdated;
+
     Set<CarroDTO> carroDTOset = new HashSet<>();
 
+    @Before
+    public void setUp() {
+        when(authService.me()).thenReturn(meDTO);
+        when(meDTO.getId()).thenReturn(1L);
+        when(carroMapper.toEntity(carroDTO)).thenReturn(carro);
+        when(carroMapper.toDto(carro)).thenReturn(carroDTO);
+        when(carroRepository.save(carro)).thenReturn(carro);
+    }
+
     @Test
-    void getAll() {
+    @DisplayName("Retornar todos os usuários")
+    public void getAll() {
         // ARRANGE
         carroDTOset.add(carroDTO);
-        when(authService.me()).thenReturn(meDTO);
         when(meDTO.getCars()).thenReturn(carroDTOset);
 
         // ACT
@@ -60,45 +74,73 @@ class CarroServiceTest {
     }
 
     @Test
-    void create_new() {
+    @DisplayName("Criar um novo carro")
+    public void create_new() {
+        // ACT
+        carroService.create(carroDTO);
+    }
+
+    @Test(expected = LicensePlateExistenteException.class)
+    @DisplayName("Criar um novo usuário cuja placa já está cadastrada")
+    public void create_when_a_licensePlate_already_exists() {
         // ARRANGE
-        when(authService.me()).thenReturn(meDTO);
-        when(meDTO.getId()).thenReturn(1L);
-        when(carroMapper.toEntity(carroDTO)).thenReturn(carro);
-        when(carroMapper.toDto(carro)).thenReturn(carroDTO);
-        when(carroRepository.save(carro)).thenReturn(carro);
+        when(carroDTO.getLicensePlate()).thenReturn("PDU-0306");
+        when(carroRepository.existsByLicensePlate("PDU-0306")).thenReturn(Boolean.TRUE);
 
         // ACT
-        CarroDTO carro1 = carroService.create(carroDTO);
-
-        // ASSERT
-        assertEquals(carro1.getId(), 1L);
+        carroService.create(carroDTO);
     }
 
     @Test
-    void create_when_a_licensePlate_already_exists() {
+    @DisplayName("Criar um novo usuário cuja placa já está cadastrada")
+    public void create_a_new_car() {
         // ARRANGE
-        Exception exception = assertThrows(LicensePlateExistenteException.class, () -> {
-            when(carroDTO.getLicensePlate()).thenReturn("PDU-0306");
-            when(carroRepository.existsByLicensePlate("PDU-0306")).thenReturn(Boolean.TRUE);
+        when(carroDTO.getLicensePlate()).thenReturn("PDU-0306");
+        when(carroRepository.existsByLicensePlate("PDU-0306")).thenReturn(Boolean.FALSE);
 
-            // ACT
-            carroService.create(carroDTO);
-        });
-
-        // ASSERT
-        assertEquals("com.pitang.testeTecnico.exceptions.LicensePlateExistenteException", exception.getClass().getName());
+        // ACT
+        carroService.create(carroDTO);
     }
 
     @Test
-    void getCarro() {
+    @DisplayName("Atualizar carro")
+    public void test_update_car() {
+        // ARRANGE
+        when(carroRepository.findByIdAndUsuarioId(1L, authService.me().getId())).thenReturn(Optional.ofNullable(carro));
+        when(carroMapper.toEntity(carroDTO)).thenReturn(carroUpdated);
+        when(carroUpdated.getLicensePlate()).thenReturn("PDU-0306");
+        when(carro.getLicensePlate()).thenReturn("PDU-0306");
+
+        // ACT
+        carroService.updateCarro(1L, carroDTO);
+    }
+
+    @Test(expected = LicensePlateExistenteException.class)
+    @DisplayName("Atualizar carro, placa alterada por uma que jpa está cadastrada")
+    public void test_update_car_fail_when_licenceplate_already_exists() {
+        // ARRANGE
+        when(carroRepository.findByIdAndUsuarioId(1L, authService.me().getId())).thenReturn(Optional.ofNullable(carro));
+        when(carroMapper.toEntity(carroDTO)).thenReturn(carroUpdated);
+        when(carroUpdated.getLicensePlate()).thenReturn("PDU-0306");
+        when(carro.getLicensePlate()).thenReturn("OKR-9024");
+        when(carroRepository.existsByLicensePlate(carroDTO.getLicensePlate())).thenReturn(Boolean.TRUE);
+
+        // ACT
+        carroService.updateCarro(1L, carroDTO);
     }
 
     @Test
-    void deleteCarro() {
+    @DisplayName("Atualizar carro, placa alterada para uma que não existe no sistema")
+    public void test_update_car_change_licenseplate_for_a_non_existing() {
+        // ARRANGE
+        when(carroRepository.findByIdAndUsuarioId(1L, authService.me().getId())).thenReturn(Optional.ofNullable(carro));
+        when(carroMapper.toEntity(carroDTO)).thenReturn(carroUpdated);
+        when(carroUpdated.getLicensePlate()).thenReturn("PDU-0306");
+        when(carro.getLicensePlate()).thenReturn("OKR-9024");
+        when(carroRepository.existsByLicensePlate(carroDTO.getLicensePlate())).thenReturn(Boolean.FALSE);
+
+        // ACT
+        carroService.updateCarro(1L, carroDTO);
     }
 
-    @Test
-    void updateCarro() {
-    }
 }

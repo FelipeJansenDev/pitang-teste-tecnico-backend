@@ -20,11 +20,20 @@ public class AuthController {
         this.authService = authService;
     }
 
+    /**
+     * Método mara realziar login
+     * @param loginUserDTO objeto contendo informações de login e senha
+     * @return retorna um Token JWT
+     */
     @PostMapping("/signin")
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginUserDTO loginUserDTO){
         return new ResponseEntity<>(authService.login(loginUserDTO), HttpStatus.OK);
     }
 
+    /**
+     * Retorna as informações do usuário logado no momento através
+     * @return objeto contendo as informações do usuário logado
+     */
     @GetMapping("/me")
     public ResponseEntity<MeDTO> me(){
         return new ResponseEntity<>(authService.me(), HttpStatus.OK);

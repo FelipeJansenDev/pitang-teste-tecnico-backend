@@ -1,3 +1,9 @@
+## Links para acessar o projeto hospedado
+
+Backend - http://54.210.212.29:8080/testeTecnicoPitang/api \
+Frontend - http://teste-tecnico-pitang-frontend.s3-website.us-east-2.amazonaws.com/login \
+Javadoc - http://teste-tecnico-pitang-javadoc.s3-website.us-east-2.amazonaws.com
+
 ## Estórias de Usuário
 
 ## SPRINT 1
@@ -98,6 +104,12 @@ do objeto não estavam sendo validados.
 
 ---
 
+**FEAT-011** - Desenvolvimento de testes unitários
+
+Esse commit reune todos os testes unitários do sistema.
+
+---
+
 ## Usuários disponíveis
 
 | Nome de Login | Senha    |
@@ -151,7 +163,29 @@ e o valor será "Bearer [token copiado aqui]".
 PS.: Para acelerar o processo de testes, você pode utilizar algumas contas que já são criadas ao iniciar o projeto, basta verificar
 a seção "Usuários disponíveis".
 
+## EXECUTANDO OS TESTES UNITÁRIOS
+
+Para executar os testes unitários, basta executar o comando abaixo:
+
+```
+./mvnw test
+```
+
+
 ## SOLUÇÃO
+
+- O projeto foi gerado utilizando spring-boot devido a facilidade que ele apresenta diante das configurações iniciais
+para o início de um novo projeto.
+- Decidi utilizar Docker para facilitar o deploy, não preciso gerar um arquivo jar sempre que quero fazer o deploy da minha
+aplicação na nuvem, quando subo uma atualização, eu apenas preciso alterar a versão do projeto lá no arquivo docker-compose.yml.
+- Utilizei o Mapper para realizar a conversão de model para DTO, onde ele gera automaticante os getters e os setters respectivos,
+fazendo o mapeamento dos respectivos campos do DTO para o model e vice-versa, assim eu não preciso construir um DTO de forma manual
+  (realizando os sets manualmente).
+- Estou utilizando o handler para realizar a captura dos erros e assim setar a mensagem para cada erro de forma personalizada,
+assim como o código do erro também
+- Não utilizei lombok, pois gosto de ter controle total sobre as classes, métodos getters, setters, construtores e toString de 
+todas as classes que eu construo.
+- 
 
 OVERVIEW SOBRE A STACK DE TECNOLOGIA:
 
@@ -168,7 +202,3 @@ OVERVIEW SOBRE A STACK DE DEVOPS:
 - Como requisito do teste técnico: A api está sendo executada na AWS em uma instância do Lightsail. 
 Está sendo executado atravé do arquivo docker-compose e puxando a imagem que eu fiz o deploy
 para o docker hub. O frontend foi armazenado e está sendo executado diretamente de um bucket S3.
-
-
-- Link frontend: http://teste-tecnico-pitang-frontend.s3-website.us-east-2.amazonaws.com/
-- Link API: http://54.210.212.29:8080

@@ -19,6 +19,9 @@ import org.springframework.web.context.request.WebRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Método responsável por tratar todas as exceções que ocorrem no sistema
+ */
 @ControllerAdvice
 public class ControlExceptionHandler {
 
@@ -28,6 +31,12 @@ public class ControlExceptionHandler {
         this.messageSource = messageSource;
     }
 
+    /**
+     * Método para tratar a exceção caso algum carro ou usuário não seja encontrado no sistema
+     * @param ex Erro acionado do tipo EmptyResultDataAccessException
+     * @param request requisição
+     * @return
+     */
     @ExceptionHandler({ EmptyResultDataAccessException.class })
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("recurso.nao-existente", null, LocaleContextHolder.getLocale());
@@ -35,6 +44,11 @@ public class ControlExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Método para tratar a exceção caso algum e-mail de usuário já esteja sendo utilizado
+     * @param ex Erro acionado do tipo EmailExistenteException
+     * @return
+     */
     @ExceptionHandler({ EmailExistenteException.class })
     public ResponseEntity<Object> handleNonexistentOrInactivePersonException(EmailExistenteException ex) {
         String userMessage = messageSource.getMessage("recurso.email-existente", null, LocaleContextHolder.getLocale());
@@ -42,6 +56,11 @@ public class ControlExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    /**
+     * Método para tratar a exceção caso algum login já esteja sendo utilizado
+     * @param ex Erro acionado do tipo LoginExistenteException
+     * @return
+     */
     @ExceptionHandler({ LoginExistenteException.class })
     public ResponseEntity<Object> handleLoginExistenteException(LoginExistenteException ex) {
         String userMessage = messageSource.getMessage("recurso.login-existente", null, LocaleContextHolder.getLocale());
@@ -49,6 +68,11 @@ public class ControlExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    /**
+     * Método para tratar a exceção caso as credenciais de login estejam incorretas
+     * @param ex Erro acionado do tipo BadCredentialsException
+     * @return
+     */
     @ExceptionHandler({ BadCredentialsException.class })
     public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex) {
         String userMessage = messageSource.getMessage("seguranca.credenciais-incorretas", null, LocaleContextHolder.getLocale());
@@ -56,6 +80,11 @@ public class ControlExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    /**
+     * Método para tratar a exceção caso algum carro seja cadastrado com uma placa que já existe no sistema
+     * @param ex Erro acionado do tipo LicensePlateExistenteException
+     * @return
+     */
     @ExceptionHandler({ LicensePlateExistenteException.class })
     public ResponseEntity<Object> handleLicensePlateExistenteException(LicensePlateExistenteException ex) {
         String userMessage = messageSource.getMessage("recurso.licenseplate-existente", null, LocaleContextHolder.getLocale());
@@ -63,6 +92,12 @@ public class ControlExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    /**
+     * Método para tratar a exceção caso alguma informação no objeto de carro ou usuário esteja inválido
+     * @param ex Erro acionado do tipo MethodArgumentNotValidException
+     * @param request requisição
+     * @return
+     */
     @ExceptionHandler({ MethodArgumentNotValidException.class })
     public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
         List<Error> errors = criarListaDeErros(ex.getBindingResult());

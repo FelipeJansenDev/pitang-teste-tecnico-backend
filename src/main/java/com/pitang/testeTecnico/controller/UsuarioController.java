@@ -50,6 +50,12 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.createUsuario(usuario), HttpStatus.CREATED);
     }
 
+    /**
+     * Método utilizado para atualizar um usuário
+     * @param usuarioDTO Objeto do usuário atualizado
+     * @param id Id do usuário
+     * @return usuário com as informações atualizadas
+     */
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioDTO> updateUsuario(
             @Valid @RequestBody UsuarioDTO usuarioDTO,
@@ -58,6 +64,11 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.updateUsuario(id, usuarioDTO), HttpStatus.OK);
     }
 
+    /**
+     * Método utilizado para deletar um usuário
+     * @param id id do usuário
+     * @return apenas o status 204
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id)  {
         usuarioService.deleteUsuario(id);

@@ -27,6 +27,12 @@ public class SecurityConfigurations {
     @Autowired
     SecurityFilter securityFilter;
 
+    /**
+     * responsável por toda a segurança (proteger as URLs do aplicativo, validar o nome de usuário e as senhas enviadas)
+     * @param httpSecurity
+     * @return
+     * @throws Exception
+     */
     @Bean 
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
@@ -42,6 +48,10 @@ public class SecurityConfigurations {
         .build();
     }
 
+    /**
+     * Método responsável por configurar o CORS e liberar quais origens estão permitidas a acessar o sistema
+     * @return
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -53,11 +63,22 @@ public class SecurityConfigurations {
         return source;
     }
 
+    /**
+     * Tenta autenticar o objeto Authentication passado, retornando um objeto Authentication totalmente preenchido
+     * (incluindo autoridades concedidas) se for bem-sucedido.
+     * @param authenticationConfiguration
+     * @return
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    /**
+     * Interface para criptografia de senhas
+     * @return
+     */
     @Bean 
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
