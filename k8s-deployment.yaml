@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: pitang-teste-tecnico
+spec:
+  selector:
+    matchLabels:
+      app: pitang-teste-tecnico
+  replicas: 3 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: pitang-teste-tecnico
+    spec:
+      containers:
+        - name: pitang-teste-tecnico
+          image: felipejansen/teste-tecnico-pitang:1.0.5 # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080 # The port that the container is running on in the cluster
